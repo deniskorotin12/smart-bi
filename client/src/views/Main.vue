@@ -9,8 +9,13 @@
                             <div id="header-text">Звітність</div>
                             <div id="level-two-text">на базі SmartBI</div>
                             <div id="downloading-text">Для користування - потрібно зареєструватися</div>
-                            <div>
-                               <router-link to="/registration" id="reg-button"> Реєстрація </router-link>
+                            <div class="btn-container">
+                              <div>
+                                <router-link to="/registration" id="reg-button"> Реєстрація </router-link>
+                              </div>
+                             <!-- <div>
+                                <router-link to="/download" id="dwn-button"> Завантажити </router-link>
+                              </div>-->
                             </div>
                             
                         </div>
@@ -21,17 +26,20 @@
 
 
 <script>
-    
 </script>
 
  <style>
+ .btn-container{
+   display: flex;
+   flex-direction: row;
+ }
 .material-icons.main{
     font-size: 4vh;
 }
 #leftSection {
   height: 100%;
   width: 33%;
-  background: linear-gradient(to bottom, rgb(254, 53, 45), rgb(188, 6, 3));
+  background: linear-gradient(to bottom,rgb(0, 18, 146), rgb(3, 173, 188));
 }
 .container {
   height: 100%;
@@ -39,9 +47,12 @@
   display: flex;
   justify-content: row;
 }
-#reg-button {
+#dwn-button{
+  margin-left: 1vh;
+}
+#reg-button,#dwn-button {
   text-decoration: none;
-  background: rgb(211, 22, 17);
+  background: #0152a3;;
   text-transform: uppercase;
   width: auto;
   padding: 0.5em;
@@ -50,10 +61,11 @@
   border-radius: 3px;
   font-size: 20px;
   cursor: pointer;
+  font-size: 1.1em;
 }
-#reg-button:hover {
-  color: rgb(211, 22, 17);
-  border: 1.5px solid rgb(211, 22, 17);
+#reg-button:hover,#dwn-button:hover {
+  color: #0152a3;;
+  border: 1.5px solid #0152a3;;
   font-weight: 500;
   background: transparent;
   box-shadow: 1px 1px 3px #555;
@@ -66,7 +78,7 @@
 }
 #header-text {
   font-size: 80px;
-  color: rgb(220, 28, 23);
+  color: #0152a3;;
 }
 #level-two-text {
   color: rgb(153, 153, 153);
@@ -96,7 +108,7 @@
   #downloading-text {
     font-size: 2.8vh;
   }
-  #reg-button {
+  #reg-button,#dwn-button {
     font-size: 2vh;
   }
 }
@@ -116,8 +128,8 @@
   #downloading-text {
     font-size: 2.8vh;
   }
-  #reg-button {
-    font-size: 2vh;
+  #reg-button,#dwn-button {
+    font-size: 1.2vh;
   }
 }
 .main-page{

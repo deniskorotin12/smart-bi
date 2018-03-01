@@ -1,44 +1,29 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const cors = require('cors')
-const morgan = require('morgan')
-const app = express()
-const sql = require('mssql')
-const data = require('./database/data')
-
-app.use(morgan('combined'))
-app.use(bodyParser.json())
-app.use(cors())
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const morgan = require("morgan");
+const path = require("path");
+const app = express();
+const router = express.Router();
+const fs = require("fs");
+const userHandler = require('./controllers/userController');
 
 
-require('./database/data')
+app.use(bodyParser.json());  
+app.use(express.static(path.join(__dirname + '/dist')));
+
+let handler = (req, res) => res.sendFile(path.join(__dirname + '/dist/index.html'))
+let routes = ["*","/main", "/registration", "/download", "/udid", "/login"]
+routes.forEach(route => app.get(route, handler))
+
+app.route("/login")
+  .post(userHandler.login);
+
+app.route("/register")
+  .post(userHandler.register);
+
+  app.route("/getJson")
+  .post(userHandler.getJson);
 
 
-app.listen(process.env.PORT || 8081)
-
-
-sql.connect(data, function (err) {
-
-    if (err) console.log(err);
-
-    app.post('/register', (req, res) => {
-
-        // console.log(JSON.stringify(req.body));
-        // console.log(`${JSON.stringify(req.body.place)}`);
-        const request = new sql.Request();
-        request.query(`
-        exec [dbo].[sp_Registration_user_GIOC_RegistrationAndSendMail] 
-        '${req.body.place}',
-        '${req.body.pib}',
-        '${req.body.phone}',
-        '${req.body.email}', 
-        '${req.body.udid}'
-        `, function (err, recordset) {
-
-            if (err) console.log(err)
-
-        });
-    })
-
-
-})
+app.listen(8081);
