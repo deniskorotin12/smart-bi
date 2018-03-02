@@ -9,8 +9,6 @@ import Thanks from '../views/Thanks.vue'
 import Router from 'vue-router'
 Vue.use(Router)
 
-
-
 export default new Router({
   mode: 'history',
   routes: [{
@@ -35,7 +33,8 @@ export default new Router({
     },
     {
       path: '/users',
-      component: Users
+      component: Users,
+      meta: { requiredAuth: true }
     },
     {
       path: '/thanks',

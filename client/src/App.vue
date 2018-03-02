@@ -11,10 +11,10 @@
         <h4>Email: support@smartbi.com.ua</h4>
     </div>
     <div class="login-block">
-            <router-link id='login-link' to="/login">
+            <router-link v-if="!isEnabled" id='login-link' to="/login">
                 <i class="material-icons">exit_to_app</i>
             </router-link>
-            <router-link id='users-link' to="/users">
+            <router-link v-if="isEnabled" id='users-link' to="/users">
                 <i class="material-icons">person</i>
             </router-link>
      </div>
@@ -32,7 +32,8 @@
 export default {
   data() {
     return {
-      show: false
+      show: false,
+      isEnabled: window.localStorage.getItem('authUser')?true:false
     };
   }
 };
@@ -46,9 +47,6 @@ export default {
 }
 
 
-#users-link{
-    display: none;
-}
 .home_link {
   text-decoration: none;
   color: white;

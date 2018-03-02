@@ -3,18 +3,30 @@ const nodemailer = require('nodemailer');
 const fs = require("fs");
 const con = require('../database/connection');
 const con_controller = require('../database/con_controller')();
+const jwt = require('jsonwebtoken')
 con.connect(con_controller);
 
-
+const JWT_secret = 'LKJAAJvwehg231$123HGVAGWDSJ123'
 exports.login = function (req, res) {
-    const login = req.body.login
+    const username = req.body.login
     const password = req.body.password
 
-    if (login == 'smartbi' && password == '11223344q4') {
-        return res.send('Успішно авторизовані');
+    if (username == 'smartbi' && password == 'JUjseh$%kjshGBGH23123JHGFadw') {
+       
+        const user_access = {
+            username,
+            password
+        }
+        const token  = jwt.sign(user_access, JWT_secret, )
+        res.status(200).send({
+            user: user_access,
+            token
+        })
+
     } else {
-        return res.status(401).send("Неправильні дані");
+        return res.status(403).send("Неправильні дані");
     }
+   
 };
 
 exports.register = function (req, res) {
@@ -68,9 +80,7 @@ exports.register = function (req, res) {
                         <td>${req.body.email}</td>
                         <td>${req.body.udid}</td>
                     </tr>
-                </tbody>
-
-`
+                </tbody>`
     };
 
     transporter.sendMail(mailOptions, (error, info) => {

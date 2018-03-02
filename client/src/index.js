@@ -11,6 +11,20 @@ Vue.use(VueNotifications, options)
 Vue.use(VueRouter)
 
 
+routes.beforeEach((to, from, next) =>{
+  if(to.meta.requiredAuth){
+    const authUser = JSON.parse(window.localStorage.getItem('authUser'))
+    if(authUser && authUser.access_token){
+      next()
+    }else{
+      routes.push({path: '/login'});
+    }
+  }
+
+  next()
+})
+
+
 new Vue({
   el: '#app',
   router: routes,

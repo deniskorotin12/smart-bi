@@ -2,6 +2,8 @@ import Api from './Api'
 import VueNotifications from 'vue-notifications'
 import routes from '../routes/routes'
 
+
+
 export default {
   register(credentials) {
     return Api().post('register', credentials).then(() => {
@@ -18,14 +20,13 @@ export default {
   },
   login(credentials){  
 
-    const login = document.getElementById('login-link');
-    const users = document.getElementById('users-link');
-
+    
+    const auth_token = {
+      access_token: 'KJSDrfgugYFWE@U$234JFRGESDJGF#423tfuYTAWD'
+    }
     return Api().post('login', credentials).then(() => {
-      
-      login.style.display = 'none';
-      users.style.display = 'block';
-
+      window.localStorage.setItem('authUser', JSON.stringify(auth_token))
+      location.reload()
       routes.push({path: '/users'});
       VueNotifications.success({
         message: 'Ви успішно авторизувалися'

@@ -4,10 +4,11 @@ const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
 const app = express();
+const jwt = require('jsonwebtoken')
 const router = express.Router();
 const fs = require("fs");
 const userHandler = require('./controllers/userController');
-
+const PORT = require('./config/config')
 
 app.use(bodyParser.json());  
 app.use(express.static(path.join(__dirname + '/dist')));
@@ -22,8 +23,10 @@ app.route("/login")
 app.route("/register")
   .post(userHandler.register);
 
-  app.route("/getJson")
+app.route("/getJson")
   .post(userHandler.getJson);
 
-
-app.listen(8081);
+app.listen(PORT, (err) =>{
+  if (err) throw err;
+  console.log('Server is started');
+});
